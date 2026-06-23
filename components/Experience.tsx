@@ -1,40 +1,52 @@
 import { site } from "@/data/site";
+import SectionHeader from "@/components/SectionHeader";
+import FadeIn from "@/components/FadeIn";
 
 export default function Experience() {
   const { title, subtitle, items } = site.experience;
 
   return (
-    <section id="experience" className="mx-auto max-w-5xl px-6 py-20">
-      <div className="mb-12">
-        <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
-        <p className="mt-2 text-muted">{subtitle}</p>
-      </div>
+    <section id="experience" className="mb-24 md:mb-32">
+      <FadeIn>
+        <SectionHeader index="01 — Experience" title={title} subtitle={subtitle} />
+      </FadeIn>
 
-      <div className="relative">
-        <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
-
-        <ul className="space-y-10">
-          {items.map((exp, index) => (
-            <li key={index} className="relative pl-8">
-              <div className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full border-2 border-accent bg-background" />
-
-              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+      <div className="space-y-4">
+        {items.map((exp, index) => (
+          <FadeIn key={index} delay={index * 80}>
+            <article className="glass glass-hover group rounded-2xl p-6 sm:p-8">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <h3 className="font-medium">{exp.role}</h3>
-                  <p className="text-sm text-accent">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-xs text-accent">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="text-lg font-semibold">{exp.role}</h3>
+                  </div>
+                  <p className="mt-2 text-sm text-muted">
                     {exp.company}
-                    <span className="text-muted"> · {exp.location}</span>
+                    <span className="text-muted/60"> · {exp.location}</span>
                   </p>
                 </div>
-                <time className="font-mono text-xs text-muted">{exp.period}</time>
+                <time className="shrink-0 font-mono text-xs text-muted">
+                  {exp.period}
+                </time>
               </div>
 
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                {exp.description}
-              </p>
-            </li>
-          ))}
-        </ul>
+              <ul className="mt-6 space-y-3 border-t border-border pt-6">
+                {exp.highlights.map((highlight) => (
+                  <li
+                    key={highlight}
+                    className="flex gap-3 text-sm leading-relaxed text-muted transition-colors group-hover:text-foreground/80"
+                  >
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent/60" />
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </FadeIn>
+        ))}
       </div>
     </section>
   );

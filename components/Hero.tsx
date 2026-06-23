@@ -1,42 +1,66 @@
 import { site } from "@/data/site";
+import Typewriter from "@/components/Typewriter";
 
 export default function Hero() {
   const { personal, hero } = site;
 
   return (
-    <section className="relative mx-auto max-w-5xl px-6 pt-32 pb-20">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-20 left-1/4 h-72 w-72 rounded-full bg-accent/5 blur-3xl" />
-        <div className="absolute top-40 right-1/4 h-64 w-64 rounded-full bg-accent-muted/5 blur-3xl" />
-      </div>
+    <section className="relative mb-24 md:mb-32">
+      <div className="animate-fade-up">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            {hero.status}
+          </span>
+          <span className="font-mono text-xs tracking-widest text-muted">
+            {personal.location}
+          </span>
+        </div>
 
-      <p className="mb-4 font-mono text-sm text-accent">{hero.greeting}</p>
-
-      <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-        {personal.name}
-      </h1>
-
-      <p className="mt-3 text-xl text-muted sm:text-2xl">
-        {personal.title} · {personal.location}
-      </p>
-
-      <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
-        {hero.bio}
-      </p>
-
-      <div className="mt-10 flex flex-wrap gap-4">
-        <a
-          href={hero.ctaPrimary.href}
-          className="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent-muted"
+        <h1
+          className="mt-8 font-[family-name:var(--font-syne)] text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
         >
-          {hero.ctaPrimary.label}
-        </a>
-        <a
-          href={hero.ctaSecondary.href}
-          className="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-muted hover:bg-border/30"
-        >
-          {hero.ctaSecondary.label}
-        </a>
+          <span className="text-muted">Building </span>
+          <span className="text-gradient">{personal.name}</span>
+        </h1>
+
+        <p className="mt-5 text-xl sm:text-2xl lg:text-3xl">
+          <Typewriter roles={hero.roles} />
+        </p>
+
+        <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+          {hero.bio}
+        </p>
+
+        <div className="mt-10 grid grid-cols-3 gap-3 sm:max-w-md">
+          {hero.stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="glass glass-hover rounded-xl px-4 py-3 text-center"
+            >
+              <p className="font-[family-name:var(--font-syne)] text-xl font-semibold sm:text-2xl">
+                {stat.value}
+              </p>
+              <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <ul className="mt-8 flex flex-wrap gap-2">
+          {hero.highlights.map((item) => (
+            <li
+              key={item}
+              className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-muted"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

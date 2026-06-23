@@ -1,14 +1,17 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #09090b;
+  --color-background: #050508;
   --color-foreground: #fafafa;
-  --color-muted: #a1a1aa;
-  --color-border: #27272a;
-  --color-accent: #3b82f6;
-  --color-accent-muted: #1d4ed8;
+  --color-muted: #8b8b9a;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-accent: #a78bfa;
+  --color-accent-secondary: #22d3ee;
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-surface-hover: rgba(255, 255, 255, 0.06);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-syne);
 }
 
 html {
@@ -22,5 +25,116 @@ body {
 }
 
 ::selection {
-  background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  background-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #fafafa 0%, #a78bfa 50%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-subtle {
+  background: linear-gradient(135deg, #e4e4e7 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glass {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+}
+
+.glass-hover {
+  transition: border-color 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.glass-hover:hover {
+  background: var(--color-surface-hover);
+  border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  box-shadow: 0 0 40px -12px color-mix(in srgb, var(--color-accent) 25%, transparent);
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-accent) 50%, transparent),
+    color-mix(in srgb, var(--color-accent-secondary) 30%, transparent),
+    transparent
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 6s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
