@@ -1,67 +1,71 @@
+"use client";
+
 import { site } from "@/data/site";
-import Typewriter from "@/components/Typewriter";
+import TechTypewriter from "@/components/TechTypewriter";
+import FadeIn, { Stagger, StaggerItem } from "@/components/motion/FadeIn";
 
 export default function Hero() {
-  const { personal, hero } = site;
+  const { hero } = site;
 
   return (
-    <section className="relative mb-24 md:mb-32">
-      <div className="animate-fade-up">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            {hero.status}
-          </span>
-          <span className="font-mono text-xs tracking-widest text-muted">
-            {personal.location}
-          </span>
-        </div>
+    <section className="relative overflow-hidden py-20 md:py-28 lg:py-32">
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(139,92,246,0.12),transparent_70%)]"
+        aria-hidden="true"
+      />
 
-        <h1
-          className="mt-8 font-[family-name:var(--font-syne)] text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
-        >
-          <span className="text-muted">Building </span>
-          <span className="text-gradient">{personal.name}</span>
+      <FadeIn>
+        <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-medium text-emerald-400">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          </span>
+          {hero.badge}
+        </span>
+      </FadeIn>
+
+      <FadeIn delay={0.1}>
+        <h1 className="mt-8 max-w-4xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl xl:text-[4rem]">
+          {hero.headline}
         </h1>
+      </FadeIn>
 
-        <p className="mt-5 text-xl sm:text-2xl lg:text-3xl">
-          <Typewriter roles={hero.roles} />
+      <FadeIn delay={0.15}>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
+          {hero.subheadline}
         </p>
+      </FadeIn>
 
-        <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-          {hero.bio}
+      <FadeIn delay={0.2}>
+        <p className="mt-4 text-lg sm:text-xl">
+          <span className="text-muted">Specializing in </span>
+          <TechTypewriter technologies={hero.technologies} />
         </p>
+      </FadeIn>
 
-        <div className="mt-10 grid grid-cols-3 gap-3 sm:max-w-md">
-          {hero.stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="glass glass-hover rounded-xl px-4 py-3 text-center"
-            >
-              <p className="font-[family-name:var(--font-syne)] text-xl font-semibold sm:text-2xl">
-                {stat.value}
-              </p>
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted">
-                {stat.label}
-              </p>
-            </div>
-          ))}
+      <FadeIn delay={0.25}>
+        <div className="mt-10 flex flex-wrap gap-3">
+          <a href={hero.ctas.projects.href} className="btn-primary">
+            {hero.ctas.projects.label}
+          </a>
+          <a href={hero.ctas.resume.href} className="btn-secondary">
+            {hero.ctas.resume.label}
+          </a>
         </div>
+      </FadeIn>
 
-        <ul className="mt-8 flex flex-wrap gap-2">
-          {hero.highlights.map((item) => (
-            <li
-              key={item}
-              className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-muted"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Stagger className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-4">
+        {hero.metrics.map((metric) => (
+          <StaggerItem key={metric.label}>
+            <div className="glass glass-hover rounded-2xl px-4 py-5 text-center sm:px-5">
+              <p className="text-xl font-semibold tracking-tight sm:text-2xl">
+                {metric.value}
+              </p>
+              <p className="label mt-2 text-muted">{metric.label}</p>
+            </div>
+          </StaggerItem>
+        ))}
+      </Stagger>
     </section>
   );
 }

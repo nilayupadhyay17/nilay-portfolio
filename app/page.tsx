@@ -1,27 +1,28 @@
 import Background from "@/components/Background";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import About from "@/components/About";
+import TechStack from "@/components/TechStack";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
-import Skills from "@/components/Skills";
+import WhatIBuild from "@/components/WhatIBuild";
 import Contact from "@/components/Contact";
-import { site } from "@/data/site";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <>
       <Background />
       <Navbar />
-      <main className="mx-auto max-w-4xl px-5 py-10 md:py-16 lg:px-8">
+      <main className="mx-auto max-w-6xl px-5 lg:px-8">
         <Hero />
+        <About />
+        <TechStack />
         <Experience />
         <Projects />
-        <Skills />
+        <WhatIBuild />
         <Contact />
-        <footer className="mt-24 border-t border-border pt-8 text-center text-xs text-muted md:text-left">
-          © {new Date().getFullYear()} {site.personal.name} · Senior Software
-          Engineer
-        </footer>
+        <Footer />
       </main>
     </>
   );
